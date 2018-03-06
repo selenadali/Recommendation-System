@@ -1,7 +1,7 @@
 # Recommendation-System
 Project PLDAC
 
-*2 new functions for visualising
+*2 new functions for visualizing
   * tsne applied
   * graphs converted to pdf
   * clusters detected 
