@@ -1,0 +1,33 @@
+\chapter{REVUE DE LA LITTERATURE}
+\thispagestyle{empty} 
+\section{DEFINITION DU PROJET}
+
+Dans le cadre d'un partenariat avec la société HorseCom, l'équipe MLIA dispose d'une base de données concernant l'entraînement des chevaux. Ils ont démontré l'intérêt de faire écouter de la musique aux chevaux (et aux cavaliers) pour améliorer la capacité de concentration des chevaux et leur régularité (rythmique). Tous les couples (cavalier,cheval) ne réagissent pas de la même façons aux différentes musiques: nous avons donc besoin d'apprendre un profil pour les différents couples -dans différents contextes, pour différents exercices- afin de proposer les morceaux les plus pertinents. Comme dans beaucoup d'application de recommandation, les propositions devront respecter une certaine diversité. Des modèles basés sur le filtrage collaboratif seront développés et combinés avec des stratégies diverses pour le démarage à froid (lorsqu'un nouvel utilisateur arrive dans le système). [\cite{PLDAC}]
+
+\section{CONTEXTE GÉNÉRALE}
+
+Les systèmes de recommandations sont des outils logiciels et des techniques fournissant des suggestions d'éléments à utiliser par un utilisateur qui sont cruciaux pour mettre les profils d'utilisateurs en relation avec leurs correspondances de différentes manières.En conséquence, diverses techniques de génération de recommandations ont été proposées et, au cours de la dernière décennie, bon nombre d'entre elles ont également été déployées avec succès dans des environnements commerciaux.
+
+Les recommandations personnalisées sont proposées sous forme de listes d'articles classifiés. En effectuant le ranking, les systèmes de recommandations tentent de prédire quels sont les produits ou services les plus appropriés, en fonction des préférences et des contraintes de l'utilisateur. Pour mener à bien une telle tâche de calcul, les systèmes de recommandation recueillent auprès des utilisateurs leurs préférences, qui sont soit explicitement exprimées. L’idée principal est d'améliorer ces profils d'utilisateur afin d'augmenter le taux de pertinance des prédictions.[\cite{ricci2011introduction}] \mytodo{TODO: raisons d'utilisation de systèmes recommandation, exemples des grands entreprises, types/approches?}
+
+Ces systèmes de traitement de l'information qui recueillent activement divers types de données afin d'élaborer leurs recommandations. Dans cette étude, nous allons commencer à implementer nos méthodes de récommandation en utilisant la  base de données de MovieLens et \mytodo{TODO: continuer avec la  base de données de HorsCom.} En partant de matrice rating basée sur les differents items et utilisateurs, nous allons essayer de completer les données manquants et augmenter la precision de nos recommandations.
+
+\section{LES DATASETS}
+
+Afin de développer notre système de recommandation nous avons utilisé la base de données MovieLens Small avec 100 000 classements et 1300 tags appliquées à 9 000 films par 700 utilisateurs. Les jeux de données MovieLens, publiés pour la première fois en 1998, décrivent les préférences exprimées par les gens pour les films. Ces préférences se présentent sous la forme de tuples: <utilisateur, item, cotation, horodatage>, chacun étant le résultat d'une personne exprimant une préférence ( de 0 à 5 étoiles) pour un film à un moment donné afin de recevoir des recommandations personnalisées. [\cite{harper2016movielens}]
+
+Nous avons créé une matrice rating $R_{u,i}$ correspondant aux utilisateurs et items(films) en séparant 90\% pour l\/'entrainement et 10\% pour le test. $R_{u,i}$ représente la note que utilisateur {\textit{u} donne à film {\textit{i}. 
+
+Les \textbf{\textit{item}}s sont les objets recommandés qu'ils peuvent être représentés en utilisant diverses approches d'information et de représentation et caractérisés par leur complexité et leur valeur ou leur utilité. Dans cet article, nous n'avons que des valeurs positives pour les items. 
+
+Les \textbf{\textit{utilisateur}}s d\/'un système de recommandations peuvent avoir des objectifs et des caractéristiques divers. Le choix des informations à modéliser dépend de la technique de recommandation. Par exemple, dans le filtrage collaboratif, les utilisateurs sont modélisés comme une simple liste contenant les évaluations fournies par l\/'utilisateur pour certains éléments.  Le modèle utilisateur jouera toujours un rôle central dans une approche de filtrage collaboratif, l'utilisateur est soit directement classé en fonction de ses ratings aux éléments, soit, à l\/'aide de ces ratings, le système dérive un vecteur de valeurs factorielles, où les utilisateurs diffèrent dans la pondération de chaque facteur dans leur modèle.
+
+Les \textbf{\textit{rating}}s sont la forme de données transactionnelles la plus populaire qu'un système de recommandation recueille. Dans le recueil explicite des ratings, l'utilisateur est invité à donner son avis sur un élément sur une échelle de notation. Dans cette étude nous avons des évaluations numériques entre 0-5.
+
+[\mytodo{TODO: Data-HorseCom}]
+
+
+
+
+
+

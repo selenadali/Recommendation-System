@@ -1,0 +1,52 @@
+\chapter{METHODES ET TECHNIQUES}
+\thispagestyle{empty}
+ Kullanılması planlanan teknolojiler ve metotların kısa özeti - en az 1 sayfa, en fazla 2 sayfa. 
+ 
+\textbf{Filtrage collaboratif }\
+
+Dans cette approche, le système recommande à l\/'utilisateur actif les articles que d'autres utilisateurs avec des goûts similaires aimaient dans le passé. La similarité des goûts de deux utilisateurs est calculée sur la base de la similarité de l'historique de rating des utilisateurs. C'est la raison pour laquelle nous appellons filtrage collaboratif "corrélation entre les personnes". Le filtrage collaboratif est la technique la plus populaire et la plus répandue dans le système de recommandation. [\cite{ricci2011introduction}]
+
+\subsection{PROBLEME DES DONNEES MANQUANTES - REDUCTION DE LA DIMENTIONNALITE}
+
+Il est courant en système recommandation d'avoir non seulement un ensemble de données avec des caractéristiques qui définissent un espace à haute dimension, mais aussi des informations très rares dans cet espace (c'est-à-dire qu'il y a des valeurs pour un nombre limité de caractéristiques par objet). 
+
+Les techniques de réduction de la dimensionnalité aident à surmonter ce problème en transformant l'espace original à haute dimension en une dimension plus basse. 
+
+La rareté et la malédiction de la dimensionnalité sont des problèmes récurrents en système recommandation. Même dans le cadre le plus simple, nous avons probablement une matrice sparse avec des milliers de lignes et de colonnes (utilisateurs et articles), dont la plupart sont des zéros. Par conséquent, la réduction de la dimensionnalité intervient naturellement. 
+
+\subsubsection{Décomposition en Valeur Singulière}
+
+L'application de la décomposition en valeur singulière, dans le domaine du filtrage collaboratif nécessite de factoriser la matrice rating utilisateur-item. Cela soulève souvent des difficultés en raison de la proportion élevée de valeurs manquantes causées par la rareté dans la matrice d'évaluation des articles de l'utilisateur. Décomposition en valeur singulière conventionnel n'est pas défini lorsque les connaissances sur la matrice sont incomplètes. 
+
+La décomposition en valeurs singulières est indéfinie dans le cas de matrices incomplètes. Nous allons donc utiliser d\/’autres algorithmes d\/'apprentissage.[\cite{}]
+
+\subsubsection{Méthode de Factorisation en Matrices Non-Négatives}
+
+ \mytodo{TODO: nmf}
+
+La plupart des classificateurs et des techniques de regroupement dépendent fortement de la définition d'une similarité ou d'une mesure de distance appropriée. Pour trouver une factorisation approximative $V \approx W\cdot H$ il faut d'abord définir des fonctions de coût qui quantifient la qualité de l'approximation. Une telle fonction de coût peut être construite en utilisant une certaine mesure de la distance entre deux matrices non négatives A et B. 
+
+L'exemple le plus simple et le plus commun d'une mesure de distance est la distance euclidienne: 
+\[ \left \| A - B \right \|^{2} = \sum_{ij}(A_{i,j} - B_{i,j} )^{2}  \]
+
+Une autre mesure utile réduit à la divergence de Kullback-Leibler:
+\[ D(A||B) = \sum_{ij}(A_{i,j}\cdot \log\frac{A_{i,j}}{B_{i,j}} - A_{i,j} + B_{i,j} ) \]
+Comme la distance euclidienne, cette mesure est également disparaît si et seulement si A = B. Mais on ne peut pas l'appeler "distance", parce qu'elle n'est pas symétrique pour A et B, c'est pourquoi nous l'appelons la "divergence" de A par rapport à B. [\cite{lee2001algorithms}]
+
+Afin de surmonter les risques du sur apprentissage dans le cas ou la matrice d\/’entrée est très sparse, nous allons faire la régularisation.
+
+Les systèmes antérieurs s'appuyaient sur l'imputation pour remplir les valeurs manquantes et densifier la matrice de cotation.  Cependant, l'imputation peut être très coûteuse car elle augmente considérablement la quantité de données. En outre, une imputation inexacte peut fausser considérablement les données. Par conséquent, des travaux plus récents ont suggéré de modéliser directement les notations observées seulement, tout en évitant le dépassement par un modèle régularisé. Pour apprendre les vecteurs factoriels, le système minimise l'erreur moindre carrées sur l'ensemble des notations connues:
+
+\[\arg\min \sum_{iu} (u_i - r_{ui})^{2} + (\lambda_u\cdot \left \| u \right \| ^{2} + \lambda_i\cdot \left \| i \right \| ^{2})\]
+
+[\cite{bell2008bellkor}]
+
+\subsection{DESCENTE DE GRADIENT STOCHASTIQUE}
+
+
+
+
+
+
+
+

@@ -1,0 +1,239 @@
+\documentclass[12pt,oneside]{book}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=35mm,
+ right=25mm,
+ top=35mm,
+ bottom=25mm,
+ }
+\linespread{1.50}
+    
+\usepackage[style=authoryear, defernumbers=true, backend=biber,dashed=false, maxnames=999,maxcitenames=3,firstinits=true,urldate=long]{biblatex}
+\usepackage{caption}
+\usepackage{todonotes}
+\usepackage{tocbibind}
+\usepackage{tocloft} %allows MATIERS,TABLEAUX, FIGURES
+\usepackage{float} % to force picture position
+\usepackage{mathptmx}% SETS FONT SIMILAR TO TIMES NEW ROMAN
+\usepackage{graphicx} %%%TO ADD FIGURES - IMAGES
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage[intoc]{nomencl} %Allows liste des notations
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tocbibind}
+% remove the header rule
+\pagestyle{plain} % for page renumeration
+%\usepackage{etoolbox}
+%\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+%\chead{\thepage}
+\makeatletter 
+\tikzstyle{inlinenotestyle} = [
+    draw=\@todonotes@currentbordercolor,
+    fill=\@todonotes@currentbackgroundcolor,
+    line width=0.5pt,
+    inner sep = 0.8 ex,
+    rounded corners=4pt]
+
+\renewcommand{\@todonotes@drawInlineNote}{%
+        {\begin{tikzpicture}[remember picture,baseline=(current bounding box.base)]%
+            \draw node[inlinenotestyle,font=\@todonotes@sizecommand, anchor=base,baseline]{%
+              \if@todonotes@authorgiven%
+                {\noindent \@todonotes@sizecommand \@todonotes@author:\,\@todonotes@text}%
+              \else%
+                {\noindent \@todonotes@sizecommand \@todonotes@text}%
+              \fi};%
+           \end{tikzpicture}}}%
+\newcommand{\mytodo}[1]{\@todo[inline]{#1}}%
+\makeatother
+
+\usepackage{libertine}
+
+\newcommand{\apostrophe}{\XeTeXglyph\XeTeXcharglyph"0027\relax} 
+
+\AtBeginDocument{%
+  \renewcommand\listtablename{Liste des Tableaux}
+  \renewcommand\listfigurename{Liste des Figures}
+  \renewcommand\contentsname{Table des Matières}
+  \renewcommand\bibname{Bibliographie}
+}
+\setlength\parindent{0pt} %Paragrap boslugu birakilmamasi saglanir
+%%% Implemente edilmesi gereken : Liste tablo / figure space silinmesi
+
+%Section subsection font size
+\titleformat{\section}
+  {\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+
+% Leaders for chapter entries
+\renewcommand\cftchapdotsep{\cftdotsep}
+
+% Add space to account for new chapter numbering schema
+\renewcommand\cftchapnumwidth{3em}
+\renewcommand\cftsecindent{3em}
+
+% MATH ALIGN
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+%\setlength{\cftbeforetoctitleskip}{-3em} % title vertical space removing
+% Redefine representation for chapter (and section) counters
+%%%%%%%%%%%%%%%%%%%%%%%% Pinar %%%%%%%%%%%%%%%%%%%%%%%%
+% Spacing for table of contents (toc)
+\setlength{\cftbeforetoctitleskip}{-3em} % title vertical space removing
+% Redefine representation for chapter (and section) counters
+\setlength{\cftaftertoctitleskip}{12pt} % ToC'tan sonra çok boşluk var, ona gerek var mı emin değilim bu şekilde kaldırabilirsin
+
+% Spacing for list of figures (lof)
+\setlength{\cftbeforeloftitleskip}{-3em}
+\setlength{\cftafterloftitleskip}{12pt}
+
+% Pinar: Spacing for list of tables (lot)
+\setlength{\cftbeforelottitleskip}{-3em}
+\setlength{\cftafterlottitleskip}{12pt}
+%%%%%%%%%%%%%%%%%%%%%%%% Pinar %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\renewcommand\thechapter{\arabic{chapter}}
+\renewcommand\thesection{\arabic{chapter}.\arabic{section}}
+
+\addbibresource{ref.bib}
+%\addbibresource{biblio.bib}  
+
+
+\setlength{\parskip}{12pt plus 1pt minus 1pt} % paragrap boyutu
+\titlespacing{\chapter}{0pt}{-50pt}{36pt}
+\titlespacing{\section}{0pt}{24pt}{0pt}
+\titlespacing{\subsection}{0pt}{0pt}{0cm}
+\titleformat{\chapter}{\normalfont\Large\bf}{\thechapter}{14pt}{\Large\bf} %CHAPTER BOYUTU
+  
+\renewcommand\cftloftitlefont{\Large\bf} % Liste of Figures BOYUTU
+\renewcommand\cfttoctitlefont{\Large\bf} % table des Matieres boyutu
+%% prevents Chapter 1 (then new line and Introduction) - turns into 1. Introduction
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BIBLIOGRAPHIE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Call your references "References" rather than Bibliography, then also allow for a separate Bibliography if needed.
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \perdatasource{ref.bib}
+      \step[fieldset=keywords, fieldvalue={, primary}, append]
+    }
+    \map{
+      \perdatasource{biblio.bib}
+      \step[fieldset=keywords, fieldvalue={, secondary}, append]
+    }
+  }
+}
+
+\DeclareNameAlias{sortname}{last-first}
+\DeclareFieldFormat{edition}{%
+  \ifinteger{#1}
+    {\ifnumequal{#1}{1}%
+     {}%
+     {\mkbibordedition{#1}~\bibstring{edition}}%
+    }
+    {#1\isdot}}
+
+\DeclareFieldFormat[article,inbook,incollection]{title}{#1\isdot}
+\DeclareFieldFormat[article,inbook,incollection]{citetitle}{#1\isdot}
+
+
+\renewbibmacro*{journal}{%
+  \iffieldundef{journaltitle}
+    {}
+    {\printtext[journaltitle]{%
+       \printfield[titlecase]{journaltitle}%
+       \setunit{\subtitlepunct}%
+       \printfield[titlecase]{journalsubtitle}}
+       \ifboolexpr{
+         not test {\iffieldundef{url}}
+         or
+         not test {\iffieldundef{urldate}}
+         or
+         not test {\iffieldundef{doi}}
+         or
+         not test {\iffieldundef{eprint}}
+       }
+         {\nopunct\bibstring[\mkbibbrackets]{online}}%
+         {}}}
+
+\newbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \newunit
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue+date}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+
+\NewBibliographyString{online}
+\DefineBibliographyStrings{english}{%
+  urlseen    = {accessed},
+  online     = {en ligne},
+}
+\addbibresource{ref.bib}
+\renewcommand*{\nameyeardelim}{\addcomma\addspace}
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}} % removes "In" preceeding journal title
+
+% To remove the page numbers from the first page of the chapter 
+% \makeatletter
+% \let\ps@plain\ps@empty
+% \makeatother
+\defbibheading{bay}[\bibname]{%
+  \chapter*{#1}%
+  \markboth{#1}{#1}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{}BIBLIOGRAPHIE}
+}
+\renewcommand{\bibsetup}{\thispagestyle{empty}}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\input{titlepage}
+\frontmatter
+\tableofcontents
+\clearpage
+\input{Notations}
+\clearpage
+\listoffigures
+\clearpage
+\input{Resume}
+\clearpage
+\input{Ozet}
+\clearpage
+\mainmatter
+
+% to place the page number at the top of the page
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\chead{\arabic{page}}
+
+\input{Chapter1}
+\input{Chapter2}
+\input{Chapter3}
+\backmatter
+
+\printbibliography[keyword=primary, title=BIBLIOGRAPHIE,heading=bay]
+\thispagestyle{fancy}
+
+\end{document}
